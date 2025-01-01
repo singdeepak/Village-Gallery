@@ -1,13 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GalleryController;
 
 
-// Category Resource Route
-Route::resource('category', CategoryController::class);
+Route::get('/', [GalleryController::class, 'showPhotos'])->name('show.gallery');
 
 
-Route::get('show', function(){
-    return view('admin.index');
-});
+require __DIR__ .'/admin.php';

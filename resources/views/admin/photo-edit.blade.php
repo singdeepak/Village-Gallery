@@ -5,15 +5,18 @@
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header bg-warning text-white">
-                    <h5 class="mb-0">Update Category</h5>
+                    <h5 class="mb-0">Update Photos</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('category.update', $category->id) }}" method="POST">
+                    <form action="{{ route('photo.update', $photo->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
-                            <label for="name" class="form-label">Category Name</label>
-                            <input type="text" name="category_name" placeholder="Enter category name" value="{{ old('category_name', $category->category_name) }}" class="form-control">
+                            <label>Existing Photo</label>
+                            <img src="{{ asset('storage/'.$photo->photo) }}" alt="image" style="width:100px;, height:100px;">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="file" name="photo_name" class="form-control">
                         </div>
 
                         <div class="text-end">

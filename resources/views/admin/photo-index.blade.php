@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12 mb-3 text-end">
-            <a href="{{ route('category.create') }}" class="btn btn-primary">Create Category</a>
+            <a href="{{ route('photo.create') }}" class="btn btn-primary">Create Photo</a>
         </div>
     </div>
 
@@ -11,28 +11,28 @@
         <div class="col-12">
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Category List</h4>
+                    <h4 class="mb-0">Photo List</h4>
                 </div>
 
                 <div class="card-body">
-                    @if ($categories->isNotEmpty())
+                    @if ($photos->isNotEmpty())
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>Category Name</th>
+                                        <th>Photo</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($photos as $photo)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $category->category_name }}</td>
+                                            <td><img src="{{ 'storage/'.$photo->photo }}" alt="image" style="width:100px;, height:100px;"></td>
                                             <td class="text-center">
-                                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-success me-1">Edit</a>
-                                                <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="d-inline-block">
+                                                <a href="{{ route('photo.edit', $photo->id) }}" class="btn btn-sm btn-success me-1">Edit</a>
+                                                <form action="{{ route('photo.destroy', $photo->id) }}" method="POST" class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -45,7 +45,7 @@
                         </div>
                     @else
                         <div class="alert alert-warning" role="alert">
-                            <h5 class="mb-0">Data not found in category table!</h5>
+                            <h5 class="mb-0">Data not found in Photo table!</h5>
                         </div>
                     @endif
                 </div>

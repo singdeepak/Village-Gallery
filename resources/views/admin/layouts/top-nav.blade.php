@@ -5,10 +5,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/') }}" class="nav-link">Home</a>
+        <a href="{{ route('admin.dashboard') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Go To Gallery</a>
+        <a href="{{ route('show.gallery') }}" class="nav-link">Go To Gallery</a>
       </li>
     </ul>
 
@@ -16,9 +16,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Fullscreen -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
+        <a href="{{ route('admin.logout') }}" class="btn btn-danger">Logout</a>
       </li>
     </ul>
   </nav>

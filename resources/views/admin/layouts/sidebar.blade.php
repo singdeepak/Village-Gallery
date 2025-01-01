@@ -23,13 +23,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ asset('adminLTE/index.html') }}" class="nav-link active">
+                <a href="{{ route('category.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ asset('adminLTE/index2.html') }}" class="nav-link">
+                <a href="{{ route('photo.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Photo</p>
                 </a>
