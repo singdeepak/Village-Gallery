@@ -1,3 +1,7 @@
+@php
+    $categories = App\Models\Category::latest()->get();
+@endphp
+
 @extends('admin.layouts.app')
 @section('content')
 <div class="container mt-4">
@@ -11,6 +15,19 @@
                     <form action="{{ route('photo.update', $photo->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="form-group mb-3">
+                            <select name="category_id" class="form-control">
+                                @foreach ($categories as $cat)
+                                    <option value="{{ $cat->id }}" 
+                                        {{ $cat->id == $photo->category_id ? 'selected' : '' }}>
+                                        {{ $cat->category_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        
+                        
                         <div class="form-group mb-3">
                             <label>Existing Photo</label>
                             <img src="{{ asset('storage/'.$photo->photo) }}" alt="image" style="width:100px;, height:100px;">

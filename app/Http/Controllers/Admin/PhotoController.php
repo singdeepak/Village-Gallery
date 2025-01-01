@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Photo;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Photo;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -59,47 +61,38 @@ class PhotoController extends Controller
     public function edit(string $id)
     {
         $photo = Photo::findOrFail($id);
-        return view('admin.photo-edit', compact('photo'));
+        $categories = Category::get();
+        return view('admin.photo-edit', compact('photo', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-    // Find the photo by ID
-    $photo = Photo::findOrFail($id);
+    public function update(Request $request, string $id){
+        $photo = Photo::findOrFail($id);
 
-    // Validate input fields
-    $request->validate([
-        'category' => 'required|exists:categories,id',
-        'photo_name' => 'nullable|mimes:jpeg,png,jpg|max:5000' // Optional image upload
-    ]);
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'photo_name' => 'nullable|mimes:jpeg,png,jpg|max:5000'
+        ]);
 
-    // Update category
-    $photo->category = $request->category;
+        $photo->category_id = $request->category_id;
 
-    // Check if a new image is uploaded
-    if ($request->hasFile('photo_name')) {
-        // Store the new image
-        $uploadedPhoto = $request->file('photo_name');
-        $photoPath = $uploadedPhoto->store('uploads', 'public');
+        if ($request->hasFile('photo_name')) {
+            $uploadedPhoto = $request->file('photo_name');
+            $photoPath = $uploadedPhoto->store('uploads', 'public');
 
-        // Delete the old image if it exists
-        if ($photo->photo) {
-            Storage::disk('public')->delete($photo->photo);
+            if ($photo->photo) {
+                Storage::disk('public')->delete($photo->photo);
+            }
+
+            $photo->photo = $photoPath;
         }
 
-        // Update photo path
-        $photo->photo = $photoPath;
+        $photo->save();
+
+        return redirect()->route('photo.index');
     }
-
-    // Save the changes
-    $photo->save();
-
-    // Redirect back with success message
-    return redirect()->route('photo.index')->with('success', 'Photo updated successfully!');
-}
 
     /**
      * Remove the specified resource from storage.

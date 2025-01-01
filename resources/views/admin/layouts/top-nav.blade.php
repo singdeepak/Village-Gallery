@@ -8,7 +8,7 @@
         <a href="{{ route('admin.dashboard') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('show.gallery') }}" class="nav-link">Go To Gallery</a>
+        <a href="{{ route('show.gallery') }}" target="_blank" class="nav-link">Go To Gallery</a>
       </li>
     </ul>
 
